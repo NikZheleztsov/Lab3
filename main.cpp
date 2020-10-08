@@ -14,6 +14,11 @@ int main() {
     for (int i=0; i<=9; i++)
         arr[i] = std::rand()%21-10;
 
+    for (int i=0; i<=9; i++)
+	std::cout<<arr[i]<<" ";
+
+    std::cout<<"\n";
+
     std::cout<<arr[2]<<" "<<arr[4]<<" "<<arr[9]<<"\n";
     std::cout<<pow(arr[2],3)+pow(arr[4],3)+pow(arr[9],3) << "\n";
 
@@ -23,7 +28,7 @@ int main() {
     std::cout<<"Please, enter number of array's elements: ";
     int n=0;
     std::cin >> n;
-    int* arr2 = new int [n-1];
+    int* arr2 = new int [n];
 
     for (int k=0; k <= n-1; k++)
         std::cin >> arr2[k];
@@ -34,7 +39,7 @@ int main() {
     std::cout<<"\n";
 
     for (int l=0; l<=n-1; l++ )
-        if (l%2 == 0) {
+        if (l%2 == 1) {
             arr2[l]=arr2[l] * 7;
         }
 
@@ -99,7 +104,7 @@ int main() {
     int num_z = 0;
     std::cout<<"\n"<<str.length()<<"\n";
     for (int i=0; i<=str.length(); i++) {
-       if (static_cast<char>(str[i]) == 122) num_z++; }
+       if (str[i] == 122) num_z++; }
     std::cout<<"Number of z: "<<num_z;
 
     int l1;
@@ -107,20 +112,23 @@ int main() {
     std::cout<<"\nPlease, enter l1 and l2: ";
     std::cin>>l1;
     std::cin>>l2;
-    for (int i = l1-1; i<=l2-1; i++)
-        std::cout<<str[i];
+    std::string str2 = str.substr (l1, l2);
+    std::cout<<str2;    
+   // for (int i = l1-1; i<=l2-1; i++)
+   //     std::cout<<str[i];
 
     std::cout<<"\nPlease, enter a word: ";
     std::string str4_4;
     std::cin>>str4_4;
     std::string example = "Can you can a can as a canner can can a can?";
 
-    for (int i=0;i<=example.length();i++) {
+    for (int i=0;i<=example.length()-3;i++) {
         if ((example[i] == 67 || example[i] == 99) && (example[i+1]==97) && (example[i+2] == 110) && ((example[i+3]==32) || (example[i+3]==63))) {
             example.replace(i, 3, str4_4);
         }
         }
 
-    std::cout<<"\n"<<example;
+    std::cout<<"\n"<<example<<"\n";
+
     return 0;
 }
