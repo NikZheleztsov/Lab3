@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <ctime>
 #include <cmath>
 #include <vector>
@@ -15,15 +16,14 @@ int main() {
         arr[i] = std::rand()%21-10;
 
     for (int i=0; i<=9; i++)
-	std::cout<<arr[i]<<" ";
+        std::cout<<arr[i]<<" ";
 
     std::cout<<"\n";
 
     std::cout<<arr[2]<<" "<<arr[4]<<" "<<arr[9]<<"\n";
     std::cout<<pow(arr[2],3)+pow(arr[4],3)+pow(arr[9],3) << "\n";
 
-
-
+    std::cout << std::setw(45) << std::setfill('=') << '=' << std::endl;
     std::cout<<"Part 2"<<"\n";
     std::cout<<"Please, enter number of array's elements: ";
     int n=0;
@@ -55,20 +55,19 @@ int main() {
 
     int sum = 0;
     for (int l = k1-1; l<=k2-1; l++)
-       sum = sum + arr2[l];
+        sum = sum + arr2[l];
 
-    std::cout<<"Your sum: "<<sum;
+    std::cout<<"Your sum: "<< sum << std::endl;
 
     delete [] arr2;
 
-
-    std::cout<<"\nPart 3\n";
+    std::cout << std::setw(45) << std::setfill('=') << '=' << std::endl;
+    std::cout<<"Part 3\n";
     std::vector<int> vec;
-    int num;
-    int abc;
-    std::cout<<" Please, enter number of elements: ";
+    int num, abc;
+    std::cout<<"Please, enter number of elements: ";
     std::cin >> num;
-    for (int i=0; i<=num - 1; i++) {
+    for (int i=0; i < num; i++) {
         std::cin>>abc;
         vec.push_back(abc);
     }
@@ -82,19 +81,21 @@ int main() {
         std::cout<<x<<" ";
 
     sum = 0;
-    for (int i=0; i<=num; i++)
+    for (int i = 0; i <= num; i++)
         sum = sum + vec[i];
 
-    std::cout<<"\nVector`s sum: " << sum<<"\n";
-
-    for (int i=0; i<=num; i++)
-        if (vec[i]<0) vec.erase(vec.begin()+i);
+    std::cout<<"\nVector`s sum: " << sum <<"\n";
+    for (int i=0; i <= num; i++) //fixed if (vec[i]<0) 
+    {
+        vec.erase(vec.begin()+i);
+        break;
+    }
 
     for (auto x : vec)
         std::cout<<x<<" ";
 
-
-    std::cout<<"\nPart 4\nPlease, enter your phrase: ";
+    std::cout << std::endl << std::setw(45) << std::setfill('=') << '=' << std::endl;
+    std::cout<<"Part 4\nPlease, enter your phrase: ";
     std::string str;
 
     std::cin.ignore(10, '\n');
@@ -104,31 +105,43 @@ int main() {
     int num_z = 0;
     std::cout<<"\n"<<str.length()<<"\n";
     for (int i=0; i<=str.length(); i++) {
-       if (str[i] == 122) num_z++; }
+        if (str[i] == 122) num_z++; }
     std::cout<<"Number of z: "<<num_z;
 
-    int l1;
-    int l2;
+    int l1, l2;
     std::cout<<"\nPlease, enter l1 and l2: ";
     std::cin>>l1;
     std::cin>>l2;
-    std::string str2 = str.substr (l1, l2);
-    std::cout<<str2;    
-   // for (int i = l1-1; i<=l2-1; i++)
-   //     std::cout<<str[i];
+    std::string str2 = str.substr (l1, l2 - l1 + 1); //fixed
+    std::cout << str2; 
 
     std::cout<<"\nPlease, enter a word: ";
     std::string str4_4;
     std::cin>>str4_4;
     std::string example = "Can you can a can as a canner can can a can?";
 
+    /* //Old implementation
     for (int i=0;i<=example.length()-3;i++) {
-        if ((example[i] == 67 || example[i] == 99) && (example[i+1]==97) && (example[i+2] == 110) && ((example[i+3]==32) || (example[i+3]==63))) {
+        if ((example[i] == 67 || example[i] == 99) && (example[i+1]==97) 
+                && (example[i+2] == 110) && ((example[i+3]==32) || (example[i+3]==63))) {
+
             example.replace(i, 3, str4_4);
         }
-        }
+    }
 
     std::cout<<"\n"<<example<<"\n";
+    */
+
+    //New one
+    std::string mas_str[3] = {"can ", "can?", "Can"};
+    for (int j = 0; j < 3; j++)
+    {
+        int i = 0, pos = example.find(mas_str[j], 0);
+        for (pos; (pos = example.find(mas_str[j], i)) != -1; i = pos + 1)
+            example.replace(pos, 3, str4_4);
+    }
+
+    std::cout << example << std::endl;
 
     return 0;
 }
