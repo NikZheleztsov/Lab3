@@ -87,8 +87,11 @@ int main() {
     std::cout<<"\nVector`s sum: " << sum <<"\n";
     for (int i=0; i <= num; i++) //fixed if (vec[i]<0) 
     {
-        vec.erase(vec.begin()+i);
-        break;
+        if (vec[i] < 0)
+        {
+            vec.erase(vec.begin()+i);
+            break;
+        }
     }
 
     for (auto x : vec)
